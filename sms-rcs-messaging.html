@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMS and RCS Messaging | Zettr</title>
+
+    <link rel="icon" type="image/png" href="asset/img/zettr_logo.png">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Questrial&display=swap"
+        rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Questrial', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            margin: 0;
+            min-width: 320px;
+            min-height: 100vh;
+            background-color: #f2f2f2;
+            color: #213547;
+        }
+
+        /* Header Styles */
+        .header-section {
+            z-index: 1000;
+            background-color: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            padding-top: 20px;
+            padding-bottom: 10px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .logo-text {
+            font-family: 'Questrial', sans-serif;
+            font-size: 42px;
+            font-weight: 600;
+            color: white;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-link {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 24px;
+            font-weight: 600;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #3dd5e8 !important;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            width: 100%;
+            padding: 100px 0 60px 0;
+            margin-top: 140px;
+            text-align: center;
+        }
+
+        .hero-title {
+            font-family: "PT Serif", serif;;
+            font-size: 52px;
+            font-weight: 800;
+            color: #213547;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-family: 'Questrial', sans-serif;
+            font-size: 22px;
+            color: #213547;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* Main Content Section */
+        .content-section {
+            padding: 80px 0;
+            background-color: #ffffff;
+        }
+
+        .section-title {
+            font-family: 'Times New Roman', serif;
+            font-size: 42px;
+            font-weight: 600;
+            color: #213547;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .subsection-title {
+            font-family: 'PT Serif', serif;
+            font-size: 28px;
+            font-weight: 600;
+            color: #213547;
+            margin-bottom: 20px;
+            margin-top: 40px;
+        }
+
+        .content-text {
+            font-family: 'PT Serif', serif;
+            font-size: 18px;
+            line-height: 1.8;
+            color: #213547;
+            margin-bottom: 20px;
+        }
+
+        .terms-card {
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .terms-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .terms-link {
+            font-family: 'Questrial', sans-serif;
+            font-size: 18px;
+            color: #667eea;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .terms-link:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        /* Lead paragraph */
+        .lead-text {
+            font-size: 20px;
+            margin-bottom: 40px;
+        }
+
+        .content-block {
+            margin-top: 70px;
+        }
+
+        .content-block:first-of-type {
+            margin-top: 0;
+        }
+
+        .terms-card:hover.static-card,
+        .static-card:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        .card-title-sm {
+            font-family: 'PT Serif', serif;
+            font-size: 22px;
+            font-weight: 600;
+            color: #213547;
+            margin-bottom: 10px;
+        }
+
+        .card-text {
+            font-family: 'Questrial', sans-serif;
+            font-size: 17px;
+            line-height: 1.7;
+            color: #213547;
+            margin-bottom: 0;
+        }
+
+        .notice-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #667eea;
+            border-radius: 8px;
+            padding: 20px 24px;
+            font-family: 'Questrial', sans-serif;
+            font-size: 18px;
+            line-height: 1.7;
+            color: #213547;
+        }
+
+        .notice-box strong {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .code-tag {
+            font-family: monospace;
+            font-weight: 700;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            padding: 2px 8px;
+            color: #213547;
+        }
+
+        .quote-box {
+            font-family: monospace;
+            font-size: 16px;
+            line-height: 1.7;
+            background-color: #f8f9fa;
+            border-left: 4px solid #667eea;
+            border-radius: 8px;
+            padding: 20px 24px;
+            margin-bottom: 20px;
+            color: #213547;
+        }
+
+        .small-note {
+            font-family: 'Questrial', sans-serif;
+            font-size: 15px;
+            line-height: 1.6;
+            color: #5c6b7a;
+        }
+
+        /* Message simulator */
+        .phone-frame {
+            max-width: 360px;
+            margin: 0 auto;
+            background-color: #213547;
+            border-radius: 28px;
+            padding: 16px;
+        }
+
+        .phone-screen {
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 16px;
+        }
+
+        .phone-sender {
+            text-align: center;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .phone-sender strong {
+            display: block;
+            font-size: 18px;
+        }
+
+        .phone-sender span {
+            font-size: 12px;
+            color: #6c757d;
+        }
+
+        .chat-stream {
+            min-height: 240px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 16px 0;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .bubble {
+            max-width: 88%;
+            padding: 12px 14px;
+            border-radius: 16px;
+            margin-bottom: 12px;
+        }
+
+        .bubble-received {
+            background-color: #e2e8f0;
+            color: #213547;
+            border-bottom-left-radius: 4px;
+        }
+
+        .bubble-sent {
+            background-color: #213547;
+            color: #ffffff;
+            margin-left: auto;
+            border-bottom-right-radius: 4px;
+            font-family: monospace;
+            font-weight: 700;
+        }
+
+        .bubble-link {
+            color: #667eea;
+            text-decoration: underline;
+            word-break: break-all;
+        }
+
+        .bubble-note {
+            font-size: 13px;
+            margin-top: 8px;
+            margin-bottom: 0;
+            color: #5c6b7a;
+        }
+
+        .command-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .command-list li {
+            font-family: 'Questrial', sans-serif;
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .command-list .code-tag {
+            margin-right: 8px;
+            color: #667eea;
+        }
+
+        /* Language table */
+        .lang-table {
+            font-family: 'Questrial', sans-serif;
+            font-size: 17px;
+            color: #213547;
+            margin-bottom: 0;
+        }
+
+        .lang-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .lang-table td.phrase {
+            font-family: monospace;
+            color: #667eea;
+        }
+
+        .support-box {
+            background-color: #213547;
+            color: #ffffff;
+            border-radius: 12px;
+            padding: 40px;
+        }
+
+        .support-box .section-title,
+        .support-box .content-text {
+            color: #ffffff;
+        }
+
+        .support-email {
+            font-family: monospace;
+            font-size: 18px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 10px 16px;
+            display: inline-block;
+            margin-right: 12px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 60px 0 40px 0;
+                margin-top: 100px;
+            }
+
+            .hero-title {
+                font-size: 36px;
+            }
+
+            .hero-subtitle {
+                font-size: 18px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .subsection-title {
+                font-size: 24px;
+            }
+
+            .content-text,
+            .notice-box {
+                font-size: 16px;
+            }
+
+            .terms-card {
+                padding: 20px;
+            }
+
+            .support-box {
+                padding: 24px;
+            }
+
+            .lang-table {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header Component -->
+    <div id="header-component"></div>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <h1 class="hero-title">SMS and RCS Messaging</h1>
+            <p class="hero-subtitle">
+                Amili Pay helps businesses send invoices and collect payments. This page explains when you may get a
+                text message from us, why you get it, and how to stop receiving messages.
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Content Section -->
+    <section class="content-section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-10">
+
+                    <!-- What we send -->
+                    <div class="content-block">
+                        <h2 class="section-title">What We Send</h2>
+
+                        <p class="content-text lead-text">
+                            We only send transactional messages about an invoice you have with a business, for example:
+                        </p>
+
+                        <div class="row">
+                            <div class="col-12 col-md-4">
+                                <div class="terms-card static-card h-100">
+                                    <h3 class="card-title-sm">New Invoice</h3>
+                                    <p class="card-text">Containing a secure payment link to complete your transaction.</p>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="terms-card static-card h-100">
+                                    <h3 class="card-title-sm">Payment Reminder</h3>
+                                    <p class="card-text">A helpful reminder for an upcoming or unpaid invoice.</p>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div class="terms-card static-card h-100">
+                                    <h3 class="card-title-sm">Receipt &amp; Confirmation</h3>
+                                    <p class="card-text">Immediate proof of payment once your invoice is settled.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="notice-box">
+                            <strong>We never send marketing or promotional messages.</strong>
+                        </div>
+                    </div>
+
+                    <!-- How you opt in -->
+                    <div class="content-block">
+                        <h2 class="section-title">How You Opt In</h2>
+
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <div class="terms-card static-card h-100">
+                                    <h3 class="subsection-title" style="margin-top: 0;">Online Consent</h3>
+                                    <p class="card-text">
+                                        When you place an order, book a service, or sign up with a business on its
+                                        website, you enter your mobile number. The form states that the number will be
+                                        used to send invoices, payment links, and receipts by SMS.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="terms-card static-card h-100">
+                                    <h3 class="subsection-title" style="margin-top: 0;">In Person or by Phone</h3>
+                                    <p class="card-text">
+                                        When you buy something in a shop or agree to a service over the phone, the staff
+                                        ask for your mobile number and tell you the invoice and payment link will be
+                                        sent by SMS. You can say no and get the invoice by email instead.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="notice-box">
+                            <strong>Privacy Guarantee:</strong> Your number is saved on your invoice in Amili Pay and
+                            is only used for messages about that specific invoice.
+                        </div>
+                    </div>
+
+                    <!-- Interactive Message Simulator -->
+                    <div class="content-block">
+                        <h2 class="section-title">Interactive Message Simulator</h2>
+                        <p class="content-text text-center">Test how opting out works in real-time</p>
+
+                        <div class="row align-items-center g-4">
+                            <div class="col-12 col-lg-6">
+                                <div class="phone-frame">
+                                    <div class="phone-screen">
+                                        <div class="phone-sender">
+                                            <strong>Amili Pay</strong>
+                                            <span>Verified Business Messaging (RCS/SMS)</span>
+                                        </div>
+
+                                        <div id="chat-stream" class="chat-stream" aria-live="polite">
+                                            <div class="bubble bubble-received">
+                                                Hi Kari, you have a new invoice of <strong>NOK 450.00</strong> from
+                                                Example Shop AS. Pay securely here:
+                                                <span class="bubble-link">https://pay2.amili.no/i/abc123</span>
+                                                <p class="bubble-note">Reply STOP to opt out.</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex gap-2 pt-3 border-top">
+                                            <button id="sim-stop-btn" type="button" class="btn btn-dark flex-fill"
+                                                onclick="simulateReply('STOP')">Simulate "STOP"</button>
+                                            <button id="sim-start-btn" type="button"
+                                                class="btn btn-outline-dark flex-fill d-none"
+                                                onclick="simulateReply('START')">Simulate "START"</button>
+                                            <button type="button" class="btn btn-outline-secondary"
+                                                onclick="resetSim()" title="Reset Demo">Reset</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-lg-6">
+                                <div class="terms-card static-card">
+                                    <h3 class="subsection-title" style="margin-top: 0;">Standard Reply Commands</h3>
+                                    <ul class="command-list">
+                                        <li>
+                                            <span class="code-tag">STOP</span>
+                                            Unsubscribes your number immediately from future SMS/RCS notifications.
+                                        </li>
+                                        <li>
+                                            <span class="code-tag">START</span>
+                                            Resubscribes your number if you previously opted out.
+                                        </li>
+                                        <li>
+                                            <span class="code-tag">HELP</span>
+                                            Provides direct support information for the issuing merchant.
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <p class="small-note">
+                                    <strong>Note:</strong> Opting out applies to all automatic invoice notifications
+                                    sent through the Amili Pay platform sender for that phone number.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- How to opt out -->
+                    <div class="content-block">
+                        <h2 class="section-title">How to Opt Out</h2>
+
+                        <p class="content-text" style="font-size: 20px;">
+                            Reply <span class="code-tag">STOP</span> (or <span class="code-tag">STOPP</span>) to any
+                            message.
+                        </p>
+                        <p class="content-text">
+                            You will immediately receive this confirmation message and no further automated
+                            communications will be sent:
+                        </p>
+
+                        <div class="quote-box">
+                            "You have been unsubscribed and will not get any more messages from Amili Pay. Reply START
+                            to subscribe again. For help, contact the business that sent you the invoice."
+                        </div>
+
+                        <p class="content-text">
+                            You may reply <span class="code-tag">START</span> at any time to re-subscribe, or reply
+                            <span class="code-tag">HELP</span> for support instructions.
+                        </p>
+                    </div>
+
+                    <!-- RCS and SMS -->
+                    <div class="content-block">
+                        <h2 class="section-title">RCS and SMS Compatibility</h2>
+
+                        <p class="content-text">
+                            Where your phone and mobile carrier support it, messages arrive as rich <strong>RCS</strong>
+                            (Rich Communication Services) messages with verified branding. If RCS is not available, the
+                            exact same message is delivered as a standard <strong>SMS</strong> automatically.
+                        </p>
+
+                        <div class="notice-box">
+                            The opt-out footer and the <span class="code-tag">STOP</span> reply function identically on
+                            both RCS and standard SMS formats.
+                        </div>
+                    </div>
+
+                    <!-- Opt-out line by language -->
+                    <div class="content-block">
+                        <h2 class="section-title">Opt-out Line by Language</h2>
+                        <p class="content-text text-center">
+                            The line added at the end of each message based on the merchant's account language
+                        </p>
+
+                        <div class="mb-3">
+                            <label for="lang-search" class="visually-hidden">Filter language</label>
+                            <input id="lang-search" type="text" class="form-control" placeholder="Filter language..."
+                                oninput="filterLanguages()">
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-hover table-bordered lang-table">
+                                <thead>
+                                    <tr>
+                                        <th>Language</th>
+                                        <th>Opt-out Phrase Included in Message</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="language-table-body">
+                                    <tr class="lang-row">
+                                        <td><strong>English</strong></td>
+                                        <td class="phrase">Reply STOP to opt out</td>
+                                    </tr>
+                                    <tr class="lang-row">
+                                        <td><strong>Norsk (Norwegian)</strong></td>
+                                        <td class="phrase">Svar STOPP for &aring; avslutte</td>
+                                    </tr>
+                                    <tr class="lang-row">
+                                        <td><strong>Nederlands (Dutch)</strong></td>
+                                        <td class="phrase">Antwoord STOP om je af te melden</td>
+                                    </tr>
+                                    <tr class="lang-row">
+                                        <td><strong>Deutsch (German)</strong></td>
+                                        <td class="phrase">Antworten Sie STOP zum Abmelden</td>
+                                    </tr>
+                                    <tr class="lang-row">
+                                        <td><strong>Eesti (Estonian)</strong></td>
+                                        <td class="phrase">Loobumiseks vasta STOP</td>
+                                    </tr>
+                                    <tr class="lang-row">
+                                        <td><strong>Magyar (Hungarian)</strong></td>
+                                        <td class="phrase">Leiratkoz&aacute;shoz v&aacute;laszoljon STOP-pal</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Custom Twilio accounts -->
+                    <div class="content-block">
+                        <h2 class="section-title">Businesses Using Their Own Twilio Account</h2>
+
+                        <p class="content-text">
+                            A business can choose to send messages from its own custom Twilio account instead of the
+                            shared Amili Pay platform account.
+                        </p>
+                        <p class="content-text">
+                            The same opt-out line is added to every message, but the business is directly responsible
+                            for opt-out handling, including RCS opt-out compliance, and must ensure no SMS
+                            notifications are sent to customers who have unsubscribed.
+                        </p>
+                        <p class="small-note">
+                            * Note: This page specifically describes messages sent through the standard Amili Pay
+                            platform sender.
+                        </p>
+                    </div>
+
+                    <!-- Questions / Support -->
+                    <div id="questions" class="content-block">
+                        <div class="support-box">
+                            <h2 class="section-title" style="text-align: left; font-size: 34px;">Questions about a
+                                message you received?</h2>
+                            <p class="content-text">
+                                For questions regarding specific invoice charges or products purchased, please contact
+                                the business that issued the invoice directly. For technical messaging inquiries, reach
+                                out to our platform support.
+                            </p>
+
+                            <div class="d-flex flex-wrap align-items-center gap-2">
+                                <span class="support-email">send.support@amili.no</span>
+                                <button type="button" class="btn btn-light" onclick="copySupportEmail()">
+                                    <span id="copy-btn-text">Copy</span>
+                                </button>
+                            </div>
+
+                            <p class="small-note mt-4" style="color: #ced4da;">
+                                Standard message and data rates from your mobile carrier may apply to incoming/outgoing
+                                SMS messages.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Component -->
+    <div id="footer-component"></div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Component Loader -->
+    <script src="asset/js/components.js"></script>
+
+    <script>
+        // Load Header and Footer Components
+        loadComponent('header-component', 'asset/common/header.html');
+        loadComponent('footer-component', 'asset/common/footer.html');
+
+        // Interactive Chat Simulator
+        const INITIAL_MESSAGE = `
+            <div class="bubble bubble-received">
+                Hi Kari, you have a new invoice of <strong>NOK 450.00</strong> from Example Shop AS. Pay securely here:
+                <span class="bubble-link">https://pay2.amili.no/i/abc123</span>
+                <p class="bubble-note">Reply STOP to opt out.</p>
+            </div>`;
+
+        const REPLIES = {
+            STOP: 'You have been unsubscribed and will not get any more messages from Amili Pay. Reply START to subscribe again. For help, contact the business that sent you the invoice.',
+            START: 'You have successfully resubscribed to Amili Pay notifications.'
+        };
+
+        function addBubble(chatStream, className, text) {
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble ' + className;
+            bubble.textContent = text;
+            chatStream.appendChild(bubble);
+            chatStream.scrollTop = chatStream.scrollHeight;
+        }
+
+        function simulateReply(command) {
+            const chatStream = document.getElementById('chat-stream');
+            const stopBtn = document.getElementById('sim-stop-btn');
+            const startBtn = document.getElementById('sim-start-btn');
+
+            addBubble(chatStream, 'bubble-sent', command);
+
+            setTimeout(() => {
+                addBubble(chatStream, 'bubble-received', REPLIES[command]);
+                stopBtn.classList.toggle('d-none', command === 'STOP');
+                startBtn.classList.toggle('d-none', command !== 'STOP');
+            }, 400);
+        }
+
+        function resetSim() {
+            document.getElementById('chat-stream').innerHTML = INITIAL_MESSAGE;
+            document.getElementById('sim-stop-btn').classList.remove('d-none');
+            document.getElementById('sim-start-btn').classList.add('d-none');
+        }
+
+        // Language Filter
+        function filterLanguages() {
+            const query = document.getElementById('lang-search').value.toLowerCase();
+            document.querySelectorAll('.lang-row').forEach(row => {
+                row.style.display = row.textContent.toLowerCase().includes(query) ? '' : 'none';
+            });
+        }
+
+        // Copy Email
+        function copySupportEmail() {
+            const email = 'send.support@amili.no';
+            const btnText = document.getElementById('copy-btn-text');
+            const done = () => {
+                btnText.textContent = 'Copied!';
+                setTimeout(() => { btnText.textContent = 'Copy'; }, 2000);
+            };
+
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(email).then(done);
+            } else {
+                const dummy = document.createElement('textarea');
+                dummy.value = email;
+                document.body.appendChild(dummy);
+                dummy.select();
+                document.execCommand('copy');
+                document.body.removeChild(dummy);
+                done();
+            }
+        }
+    </script>
+
+</body>
+
+</html>
